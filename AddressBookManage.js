@@ -45,35 +45,32 @@ class AddressBook {
         var flag = 0;
         var bookName = this.showBooks();
         var path = filePath + bookName + '.csv';
-        readWrite.readFromBook(path).then((csvData) => {
-            var fname = readline.question('Enter name to edit : ');
-            var file = fs.openSync(path, 'w');
-            var personDataHeader = ['firstName', 'lastName', 'city', 'state', 'zipCode', 'phoneNumber', 'email\n'];
-            fs.writeFileSync(file, personDataHeader.toString());
-            for (let i = 0; i < csvData.length; i++) {
-                if (csvData[i].firstName == fname) {
-                    let city = readline.question('Enter your City : ');
-                    csvData[i].city = city;
-                    let state = readline.question('Enter your State name : ');
-                    csvData[i].state = state;
-                    let zipCode = readline.question('Enter your ZipCode name : ');
-                    csvData[i].zipCode = zipCode;
-                    var personData = new person(csvData[i].firstName, csvData[i].lastName, csvData[i].city, csvData[i].state, csvData[i].zipCode, csvData[i].phoneNumber, csvData[i].email);
-                    fs.writeFileSync(file, personData.toString());
-                    console.log('data updated sucessfully..')
-                    flag++;
-                } else {
-                    let personData = new person(csvData[i].firstName, csvData[i].lastName, csvData[i].city, csvData[i].state, csvData[i].zipCode, csvData[i].phoneNumber, csvData[i].email);
-                    fs.writeFileSync(file, personData.toString());
-                }
+        var csvData = readWrite.readFromBook(path);
+        var fname = readline.question('Enter name to edit : ');
+        var file = fs.openSync(path, 'w');
+        var personDataHeader = ['firstName', 'lastName', 'city', 'state', 'zipCode', 'phoneNumber', 'email\n'];
+        fs.writeFileSync(file, personDataHeader.toString());
+        for (let i = 0; i < csvData.length; i++) {
+            if (csvData[i].firstName == fname) {
+                let city = readline.question('Enter your City : ');
+                csvData[i].city = city;
+                let state = readline.question('Enter your State name : ');
+                csvData[i].state = state;
+                let zipCode = readline.question('Enter your ZipCode name : ');
+                csvData[i].zipCode = zipCode;
+                var personData = new person(csvData[i].firstName, csvData[i].lastName, csvData[i].city, csvData[i].state, csvData[i].zipCode, csvData[i].phoneNumber, csvData[i].email);
+                fs.writeFileSync(file, personData.toString());
+                console.log('data updated sucessfully..')
+                flag++;
+            } else {
+                let personData = new person(csvData[i].firstName, csvData[i].lastName, csvData[i].city, csvData[i].state, csvData[i].zipCode, csvData[i].phoneNumber, csvData[i].email);
+                fs.writeFileSync(file, personData.toString());
             }
-            if (flag === 0) {
-                console.log('Data not found');
-            }
-            fs.closeSync(file);
-        }).catch((message) => {
-            console.log(message.message);
-        })
+        }
+        if (flag === 0) {
+            console.log('Data not found');
+        }
+        fs.closeSync(file);
     }
     /**
      * @usecase4 Delete contact  
@@ -82,27 +79,24 @@ class AddressBook {
         var flag = 0;
         var bookName = this.showBooks();
         var path = filePath + bookName + '.csv';
-        readWrite.readFromBook(path).then((csvData) => {
-            var fname = readline.question('Enter name to delete : ');
-            var file = fs.openSync(path, 'w');
-            var personDataHeader = ['firstName', 'lastName', 'city', 'state', 'zipCode', 'phoneNumber', 'email\n'];
-            fs.writeFileSync(file, personDataHeader.toString());
-            for (let i = 0; i < csvData.length; i++) {
-                if (csvData[i].firstName == fname) {
-                    flag++;
-                    console.log('data deleted sucessfully..');
-                } else {
-                    let personData = new person(csvData[i].firstName, csvData[i].lastName, csvData[i].city, csvData[i].state, csvData[i].zipCode, csvData[i].phoneNumber, csvData[i].email);
-                    fs.writeFileSync(file, personData.toString());
-                }
+        var csvData = readWrite.readFromBook(path);
+        var fname = readline.question('Enter name to delete : ');
+        var file = fs.openSync(path, 'w');
+        var personDataHeader = ['firstName', 'lastName', 'city', 'state', 'zipCode', 'phoneNumber', 'email\n'];
+        fs.writeFileSync(file, personDataHeader.toString());
+        for (let i = 0; i < csvData.length; i++) {
+            if (csvData[i].firstName == fname) {
+                flag++;
+                console.log('data deleted sucessfully..');
+            } else {
+                let personData = new person(csvData[i].firstName, csvData[i].lastName, csvData[i].city, csvData[i].state, csvData[i].zipCode, csvData[i].phoneNumber, csvData[i].email);
+                fs.writeFileSync(file, personData.toString());
             }
-            if (flag === 0) {
-                console.log('Data not found');
-            }
-            fs.closeSync(file);
-        }).catch((message) => {
-            console.log(message.message);
-        })
+        }
+        if (flag === 0) {
+            console.log('Data not found');
+        }
+        fs.closeSync(file);
     }
     /**
      * @usecase6 create multiple Book
@@ -119,13 +113,13 @@ class AddressBook {
     }
 
     showBooks = () => {
-        console.log('Book present in system\n');
+        console.log('Book present in system ==>\n');
         const testFolder = filePath;
         const fs = require('fs');
         fs.readdirSync(testFolder).forEach(file => {
             console.log(file);
         });
-        var book = readline.question('In which u want to perform opeartion: ');
+        var book = readline.question('\nIn which u want to perform opeartion: ');
         return book;
     }
 }
