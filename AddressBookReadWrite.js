@@ -11,8 +11,12 @@ class ReadAndWriteInBook {
     }
 
     readFromBook = (path) => {
+        var csvDataArray=[]
         var csvData = csv.readCsvSync(path);
-        return csvData;
+        for(let i=0;i<csvData.length;i++){
+            csvDataArray.push(csvData[i]);
+        }
+        return csvDataArray;
     }
 }
 

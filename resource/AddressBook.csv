@@ -1,5 +1,5 @@
-firstName,lastName,city,state,zipCode,phoneNumber,email
-Manish,patil,satara,MH,235643,1234534534,yup@gmail.com
-Pradip,Patil,Surat,GJ,876545,9876543423,prdp@gmail.com
-Rahul,sharma,Ajmer,RJ,123431,9876453423,rahul123@gmail.com
-mukesh,patil,pune,mh,223456,8866554433,abcg@gmail.com
+FIRSTNAME,LASTNAME,CITY,STATE,ZIPCODE,PHONENUMBER,EMAIL
+A,Patil,Dhule,MH,235423,4,prdp@gmail.com
+R,sharma,Ajmer,RJ,123431,6,rahul123@gmail.com
+B,patil,pune,mh,223456,1,abcg@gmail.com
+R,pujari,bangalore,KK,345423,5,prdpf@gmail.com
