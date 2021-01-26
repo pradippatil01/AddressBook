@@ -11,7 +11,9 @@ class AddressBook {
      */
     addPerson = () => {
         var flag = 0;
-        var path = filePath + 'AddressBook.csv'; 
+        var bookName = this.showBooks();
+        var path = filePath + bookName + '.csv';
+        console.log(path)
         let number = readline.question('How many data you want to add: ');
         for (let i = 0; i < number; i++) {
             let firstName = readline.question('Enter your First Name:');
@@ -31,7 +33,7 @@ class AddressBook {
                 if (flag > 0) {
                     console.log('data already present..');
                 } else {
-                    readWrite.writeInBook(personData.toString());
+                    readWrite.writeInBook(path, personData.toString());
                 }
             })
         }
@@ -40,9 +42,9 @@ class AddressBook {
     * @usecase3 edit contact  
     */
     editPerson = () => {
-        this.showBooks();
         var flag = 0;
-        var path = filePath + 'AddressBook.csv';
+        var bookName = this.showBooks();
+        var path = filePath + bookName + '.csv';
         readWrite.readFromBook(path).then((csvData) => {
             var fname = readline.question('Enter name to edit : ');
             var file = fs.openSync(path, 'w');
@@ -78,7 +80,8 @@ class AddressBook {
      */
     deletePerson = () => {
         var flag = 0;
-        var path = filePath + 'AddressBook.csv';
+        var bookName = this.showBooks();
+        var path = filePath + bookName + '.csv';
         readWrite.readFromBook(path).then((csvData) => {
             var fname = readline.question('Enter name to delete : ');
             var file = fs.openSync(path, 'w');
@@ -122,6 +125,8 @@ class AddressBook {
         fs.readdirSync(testFolder).forEach(file => {
             console.log(file);
         });
+        var book = readline.question('In which u want to perform opeartion: ');
+        return book;
     }
 }
 module.exports = new AddressBook;

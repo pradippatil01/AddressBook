@@ -4,8 +4,8 @@ const fs = require('fs');
 const csv = require('csv-parser');
 
 class ReadAndWriteInBook {
-    writeInBook = (data) => {
-        var file = fs.openSync(filePath + 'AddressBook.csv', 'a');
+    writeInBook = (path,data) => {
+        var file = fs.openSync(path, 'a');
         fs.writeFileSync(file, data.toString());
         fs.closeSync(file);
         console.log('data saved sucessfully...')
