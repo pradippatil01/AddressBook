@@ -8,18 +8,19 @@
 ***************************************************************************/
 const addressBook = require('./AddressBookManage');
 const readline = require('readline-sync');
+const prompt = require('prompt-sync')();
 var input;
 console.log(' Welcome to AddressBook ');
 do {
-    console.log("\n 1.Add Details:\n", "2.create Book:\n", "3.Delete Details:\n", "4.Edit Details:\n", "5.Find person:\n", "6.Sorting:\n");
-    let ch = readline.questionInt('Enter your choice:');
-    switch (ch) {
-        case 1:
-            addressBook.addPerson();
-            break;
-        case 2:
-            addressBook.createBook();
-            break;
-    }
-    input = readline.question('Do you want to continue? (Y/N)')
+    console.log("\n 1.Add Details:\n", "2.Edit Details:\n", "3.Delete Details:\n", "4.Edit Details:\n", "5.Find person:\n", "6.Sorting:\n");
+        let ch = readline.questionInt('Enter your choice:');
+        switch (ch) {
+            case 1:
+                addressBook.addPerson();
+                break;
+            case 2:
+                addressBook.editPerson();
+                break;
+        }
+    input = prompt('Do you want to continue? (Y/N)')
 } while (input == 'Y' || input == 'y');
