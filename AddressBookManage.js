@@ -2,6 +2,7 @@ const readline = require('readline-sync');
 const fs = require('fs');
 const filePath = './resource/';
 const person = require('./Person');
+const path = require('path');
 const readWrite = require('./AddressBookReadWrite');
 
 class AddressBook {
@@ -9,6 +10,8 @@ class AddressBook {
      * @usecase1 create contact  
      */
     addPerson = () => {
+        var flag = 0;
+        var path = filePath + 'AddressBook.csv'; 
         let number = readline.question('How many data you want to add: ');
         for (let i = 0; i < number; i++) {
             let firstName = readline.question('Enter your First Name:');
@@ -19,13 +22,25 @@ class AddressBook {
             let phoneNumber = readline.question('Enter your Phone Number : ');
             let email = readline.question('Enter your Email name : ');
             var personData = new person(firstName, lastName, city, state, zipCode, phoneNumber, email);
-            readWrite.writeInBook(personData.toString())
+            readWrite.readFromBook(path).then((csvData) => {
+                for (let i = 0; i < csvData.length; i++) {
+                    if (csvData[i].phoneNumber == phoneNumber) {
+                        flag++;
+                    }
+                }
+                if (flag > 0) {
+                    console.log('data already present..');
+                } else {
+                    readWrite.writeInBook(personData.toString());
+                }
+            })
         }
     }
     /**
     * @usecase3 edit contact  
     */
     editPerson = () => {
+        this.showBooks();
         var flag = 0;
         var path = filePath + 'AddressBook.csv';
         readWrite.readFromBook(path).then((csvData) => {
@@ -58,7 +73,9 @@ class AddressBook {
             console.log(message.message);
         })
     }
-
+    /**
+     * @usecase4 Delete contact  
+     */
     deletePerson = () => {
         var flag = 0;
         var path = filePath + 'AddressBook.csv';
@@ -83,6 +100,28 @@ class AddressBook {
         }).catch((message) => {
             console.log(message.message);
         })
+    }
+    /**
+     * @usecase6 create multiple Book
+     */
+    createBook = () => {
+        let bookName = readline.question('Enter Book Name: ');
+        if (fs.existsSync(filePath + bookName + '.csv')) {
+            console.log('File already created..!!');
+        } else {
+            var file = fs.openSync(filePath + bookName + '.csv', 'w');
+            var personDataHeader = ['firstName', 'lastName', 'city', 'state', 'zipCode', 'phoneNumber', 'email\n'];
+            file = fs.writeFileSync(file, personDataHeader.toString());
+        }
+    }
+
+    showBooks = () => {
+        console.log('Book present in system\n');
+        const testFolder = filePath;
+        const fs = require('fs');
+        fs.readdirSync(testFolder).forEach(file => {
+            console.log(file);
+        });
     }
 }
 module.exports = new AddressBook;

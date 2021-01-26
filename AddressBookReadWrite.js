@@ -8,6 +8,7 @@ class ReadAndWriteInBook {
         var file = fs.openSync(filePath + 'AddressBook.csv', 'a');
         fs.writeFileSync(file, data.toString());
         fs.closeSync(file);
+        console.log('data saved sucessfully...')
     }
 
     readFromBook = (path) => {
