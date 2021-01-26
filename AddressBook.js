@@ -13,14 +13,17 @@ var input;
 console.log(' Welcome to AddressBook ');
 do {
     console.log("\n 1.Add Details:\n", "2.Edit Details:\n", "3.Delete Details:\n", "4.Edit Details:\n", "5.Find person:\n", "6.Sorting:\n");
-        let ch = readline.questionInt('Enter your choice:');
-        switch (ch) {
-            case 1:
-                addressBook.addPerson();
-                break;
-            case 2:
-                addressBook.editPerson();
-                break;
-        }
+    let ch = readline.questionInt('Enter your choice:');
+    switch (ch) {
+        case 1:
+            addressBook.addPerson();
+            break;
+        case 2:
+            addressBook.editPerson();
+            break;
+        case 3:
+            addressBook.deletePerson();
+            break;
+    }
     input = prompt('Do you want to continue? (Y/N)')
 } while (input == 'Y' || input == 'y');
