@@ -12,7 +12,8 @@ const prompt = require('prompt-sync')();
 var input;
 console.log(' Welcome to AddressBook ');
 do {
-    console.log("\n 1.Add Details:\n", "2.Edit Details:\n", "3.Delete Details:\n", "4.show Books:\n", "5.create Book:\n", "6.Sorting:\n");
+    console.log("\n 1.Add Details:\n", "2.Edit Details:\n", "3.Delete Details:\n",
+        "4.show Books:\n", "5.create Book:\n", "6.Sorting:\n", "7.Find Person\n");
     let ch = readline.questionInt('Enter your choice:');
     switch (ch) {
         case 1:
@@ -29,6 +30,12 @@ do {
             break;
         case 5:
             addressBook.createBook();
+            break;
+        case 6:
+            addressBook.sorting();
+            break;
+        case 7:
+            addressBook.findPerson();
             break;
     }
     input = prompt('Do you want to continue? (Y/N)')

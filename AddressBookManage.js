@@ -122,6 +122,29 @@ class AddressBook {
         var book = readline.question('\nIn which u want to perform opeartion: ');
         return book;
     }
+    /**
+     * @usecase8 search person
+     */
+    findPerson = () => {
+        var flag = 0;
+        var bookName = this.showBooks();
+        var path = filePath + bookName + '.csv';
+        var csvData = readWrite.readFromBook(path);
+        console.log('Enter deatils for search person ');
+        var fname = readline.question('Enter name :');
+        var city = readline.question('Enter city :');
+        var state = readline.question('Enter state :');
+        for (let i = 0; i < csvData.length; i++) {
+            if (csvData[i].firstName == fname && csvData[i].city == city && csvData[i].state == state) {
+                console.log('data found sucessfully..');
+                console.log(csvData[i]);
+                flag++;
+            }
+        }
+        if (flag === 0) {
+            console.log('Data not found');
+        }
+    }
 }
 module.exports = new AddressBook;
 
