@@ -13,7 +13,7 @@ var input;
 console.log(' Welcome to AddressBook ');
 do {
     console.log("\n 1.Add Details:\n", "2.Edit Details:\n", "3.Delete Details:\n",
-        "4.show Books:\n", "5.create Book:\n", "6.Sorting:\n", "7.Find Person\n");
+        "4.show Books:\n", "5.create Book:\n", "6.Sorting:\n", "7.Find Person\n", "8.Count bycity\n","9.csvTOJson\n");
     let ch = readline.questionInt('Enter your choice:');
     switch (ch) {
         case 1:
@@ -36,6 +36,12 @@ do {
             break;
         case 7:
             addressBook.findPerson();
+            break;
+        case 8:
+            addressBook.countPerson();
+            break;
+        case 9:
+            addressBook.csvTOJson();
             break;
     }
     input = prompt('Do you want to continue? (Y/N)')

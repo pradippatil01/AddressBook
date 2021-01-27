@@ -144,9 +144,9 @@ class AddressBook {
             console.log('Data not found');
         }
     }
-/**
- * @usecase11_12 sort data 
- */
+    /**
+     * @usecase11_12 sort data 
+     */
     sorting = () => {
         var bookName = this.showBooks();
         var sortWay = readline.question('enter type of sort:');
@@ -164,7 +164,53 @@ class AddressBook {
             }
             return 0;
         })
-        console.log(csvData);
+        console.log('Data after sort sucessfully..\n', csvData);
+        var savetoJson = readline.question('do you want to save sort data in Json 1 for yes and 0 for no:');
+        if (savetoJson == 1) {
+            var jsonFile = filePath + bookName +typesort+'.json';
+            var file = fs.openSync(jsonFile, 'w')
+            let jsonData = JSON.stringify(csvData, null, 2);
+            fs.writeFileSync(file, jsonData);
+            console.log('converted sucessfully..')
+            fs.closeSync(file);
+        }else{
+            console.log('ok thank you..');
+        }
+    }
+
+    countPerson = () => {
+        var bookName = this.showBooks();
+        var path = filePath + bookName + '.csv';
+        var csvData = readWrite.readFromBook(path);
+        csvData.sort();
+        var current = null
+        var cnt = 0;
+        for (let i = 0; i < csvData.length; i++) {
+            if (csvData[i] != current) {
+                if (cnt > 0) {
+                    console.log(current + ' comes --> ' + cnt + ' times');
+                }
+                current = csvData[i].STATE;
+                cnt = 1;
+            } else {
+                cnt++;
+            }
+        }
+        if (cnt > 0) {
+            console.log(current + ' comes --> ' + cnt + ' times');
+        }
+    }
+
+    csvTOJson = () => {
+        var bookName = this.showBooks();
+        var path = filePath + bookName + '.csv';
+        var csvData = readWrite.readFromBook(path);
+        var jsonFile = filePath + bookName + '.json';
+        var file = fs.openSync(jsonFile, 'w')
+        let jsonData = JSON.stringify(csvData, null, 2);
+        fs.writeFileSync(file, jsonData);
+        console.log('converted sucessfully..')
+        fs.closeSync(file);
     }
 }
 module.exports = new AddressBook;

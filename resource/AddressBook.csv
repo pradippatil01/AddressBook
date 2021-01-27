@@ -1,5 +1,5 @@
 FIRSTNAME,LASTNAME,CITY,STATE,ZIPCODE,PHONENUMBER,EMAIL
 A,Patil,Dhule,MH,235423,4,prdp@gmail.com
-R,sharma,Ajmer,RJ,123431,6,rahul123@gmail.com
-B,patil,pune,mh,223456,1,abcg@gmail.com
+R,sharma,Ajmer,MH,123431,6,rahul123@gmail.com
+B,patil,pune,MH,223456,1,abcg@gmail.com
 R,pujari,bangalore,KK,345423,5,prdpf@gmail.com
