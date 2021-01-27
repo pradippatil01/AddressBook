@@ -50,7 +50,7 @@ class AddressBook {
         var personDataHeader = ['FIRSTNAME', 'LASTNAME', 'CITY', 'STATE', 'ZIPCODE', 'PHONENUMBER', 'EMAIL\n'];
         fs.writeFileSync(file, personDataHeader.toString());
         for (let i = 0; i < csvData.length; i++) {
-            if (csvData[i].FIRSTNAME == fname) {
+            if (csvData[i].FIRSTNAME.toUpperCase() == fname.toUpperCase()) {
                 let city = readline.question('Enter your City : ');
                 csvData[i].CITY = city;
                 let state = readline.question('Enter your State name : ');
@@ -84,7 +84,7 @@ class AddressBook {
         var personDataHeader = ['FIRSTNAME', 'LASTNAME', 'CITY', 'STATE', 'ZIPCODE', 'PHONENUMBER', 'EMAIL\n'];
         fs.writeFileSync(file, personDataHeader.toString());
         for (let i = 0; i < csvData.length; i++) {
-            if (csvData[i].FIRSTNAME == fname) {
+            if (csvData[i].FIRSTNAME.toUpperCase() == fname.toUpperCase()) {
                 flag++;
                 console.log('data deleted sucessfully..');
             } else {
@@ -110,7 +110,9 @@ class AddressBook {
             file = fs.writeFileSync(file, personDataHeader.toString());
         }
     }
-
+    /**
+     * @method showBooks show all book present in system
+     */
     showBooks = () => {
         console.log('Book present in system ==>\n');
         const testFolder = filePath;
@@ -154,8 +156,8 @@ class AddressBook {
         var path = filePath + bookName + '.csv';
         var csvData = readWrite.readFromBook(path);
         csvData.sort((first, second) => {
-            let nameA = first[typesort].toUpperCase(); // ignore upper and lowercase
-            let nameB = second[typesort].toUpperCase(); // ignore upper and lowercase
+            let nameA = first[typesort].toUpperCase();
+            let nameB = second[typesort].toUpperCase();
             if (nameA < nameB) {
                 return -1;
             }
@@ -167,40 +169,39 @@ class AddressBook {
         console.log('Data after sort sucessfully..\n', csvData);
         var savetoJson = readline.question('do you want to save sort data in Json 1 for yes and 0 for no:');
         if (savetoJson == 1) {
-            var jsonFile = filePath + bookName +typesort+'.json';
+            var jsonFile = filePath + bookName + typesort + '.json';
             var file = fs.openSync(jsonFile, 'w')
             let jsonData = JSON.stringify(csvData, null, 2);
             fs.writeFileSync(file, jsonData);
             console.log('converted sucessfully..')
             fs.closeSync(file);
-        }else{
+        } else {
             console.log('ok thank you..');
         }
     }
-
+/**
+ * @usecase10 count by city
+ */
     countPerson = () => {
+        var flag = 0;
         var bookName = this.showBooks();
         var path = filePath + bookName + '.csv';
         var csvData = readWrite.readFromBook(path);
-        csvData.sort();
-        var current = null
-        var cnt = 0;
+        var cityName = readline.question('enter city name: ');
         for (let i = 0; i < csvData.length; i++) {
-            if (csvData[i] != current) {
-                if (cnt > 0) {
-                    console.log(current + ' comes --> ' + cnt + ' times');
-                }
-                current = csvData[i].STATE;
-                cnt = 1;
-            } else {
-                cnt++;
+            if (csvData[i].CITY.toUpperCase()==cityName.toUpperCase()) {
+                flag++;
             }
         }
-        if (cnt > 0) {
-            console.log(current + ' comes --> ' + cnt + ' times');
+        if (flag > 0) {
+            console.log(cityName, ' city have ', flag, ' contact person');
+        } else {
+            console.log('no contact for ', cityName, ' city');
         }
     }
-
+    /**
+     * @usecase10 convert data to Json
+     */
     csvTOJson = () => {
         var bookName = this.showBooks();
         var path = filePath + bookName + '.csv';
